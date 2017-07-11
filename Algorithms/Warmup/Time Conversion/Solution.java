@@ -2,23 +2,32 @@
  *      DeveloperName(): Jignesh Chudasama
  *      GithubName(): https://github.com/Jignesh-81726
  */
- 
-import java.io.*;
+ import java.io.*;
 import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
 
 public class Solution {
-
-    public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
-        Scanner input = new Scanner(System.in);
-        String time = input.nextLine();
-        int hour = Integer.parseInt(time.substring(0,2));
-        int minute = Integer.parseInt(time.substring(3,5));
-        int second = Integer.parseInt(time.substring(6,8));
-        String meridiem = time.substring(8,10);
+public static void main(String[] args) {
         
-        hour += ((meridiem.equals("PM") && hour != 12)?12:0);//Performs conversion based on current meridiem
-        hour -= ((meridiem.equals("AM") && hour == 12)?12:0);
+		Scanner scan = new Scanner(System.in);
+        String time = scan.next();
+        String tArr[] = time.split(":");
+        String AmPm = tArr[2].substring(2,4);
+        int hh,mm,ss;
+        hh = Integer.parseInt(tArr[0]);
+        mm = Integer.parseInt(tArr[1]);
+        ss = Integer.parseInt(tArr[2].substring(0,2));
         
-        System.out.println(String.format("%02d",hour) + ":" + String.format("%02d",minute) + ":" + String.format("%02d",second));
+        String checkPM = "PM",checkAM ="AM";
+        int h = hh;
+        if(AmPm.equals(checkAM) && hh==12)
+        	h=0;
+        else if(AmPm.equals(checkPM)&& hh<12)
+        	h+=12;
+        
+        System.out.printf("%02d:%02d:%02d",h,mm,ss);
     }
+}
+
